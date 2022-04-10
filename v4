@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<ctype.h>
+double calc(char* s)
+{
+	double czs, a_czs[30], sum = 0;
+	char a_ysf[30], ysf;
+	int cnt_czs = 0, cnt_ysf = 0;
+	a_czs[cnt_czs++] = atof(s);
+	while (isdigit(*s) || *s == '.' || *s == ' ')
+		s++;
+	while (*s != '\0')
+	{
+		ysf = *s;
+		s++;
+		czs = atof(s);
+		while (isdigit(*s) || *s == '.' || *s == ' ')
+			s++;
+		switch (ysf)
+		{
+		case'+':a_czs[cnt_czs++] = czs, a_ysf[cnt_ysf++] = ysf; break;
+		case'-':a_czs[cnt_czs++] = -czs, a_ysf[cnt_ysf++] = ysf; break;
+		case'*':a_czs[cnt_czs - 1] *= czs; break;
+		case'/':a_czs[cnt_czs - 1] /= czs; break;
+		}
+	}
+	for (int i = 0; i < cnt_czs; i++)
+		sum += a_czs[i];
+	return sum;
+}
+int checp(char* s)
+{
+	for (int i = 0; s[i] != '\0'; i++)
+		if (s[i] == '/')
+			if (s[i + 1] == '0')
+				return 1;
+			else
+				return 0;
+	return 0;
+}
+int main()
+{
+	char s[41];
+	float result;
+	while (1)
+	{
+		int a;
+		gets(s);
+		a = checp(s);
+		if (a)
+		{
+			printf("error\n");
+			continue;
+		}
+		else
+			break;
+	}
+	result = calc(s);
+	printf("%s=%.2f\n", s, result);
+}
