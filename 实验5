@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<string.h>
+struct student
+{
+ int stuid;
+ int stuage;
+ char stuname[100];
+
+ struct student* next;
+};
+void printstudent(struct student*curp)
+{
+ printf("学号%d  年龄%d  姓名%S\n",curp->stuid,curp>stuage,curp>stuname);
+}
+void printlinkedlist(struct student*headp)
+(
+ while(headp!=NULL)
+ {
+  printstudent(headp);
+  headp=headp->next; 
+ }
+ )
+
+int main()
+{
+ struct student s1,s2,s3;
+ s1.stuid=2001;
+ s1.stuage=19;
+ strcpy(s1.stuname,"杨顺");
+
+ s2.stuid=2002;
+ s2.stuage=19;
+ strcpy(s2.stuname,"王");
+
+
+ s3.stuid=2003;
+ s3.stuage=18;
+ strcpy(s3.stuname,"罗");
+
+ struct student s4=(2004,18,"张");
+ 
+ printf("s1->s2->s3->s4>NULL\n");
+ s1.next=&s2;
+ s2.next=&s3;
+ s3.next=&s4;
+ s4.next=NULL;
+
+ struct student*curp=&s1;
+ while(curp!=NULL)
+ {
+ printstudent(curp);
+ curp=curp->next;
+ }
+
+ printf("请输入你想要查询学生的学号:");
+ int id;
+ scanf("%d"&id);
+ curp=&s1;
+ int flag=0;
+ while(curp!=NULL)
+ {
+      if(curp->stuid==id)
+   {
+    print student(curp);
+    flag=1;
+    break;
+   }
+   else curp=curp->next;
+ }
+}
+if(flag==0)
+{
+ printf("对不起，该学生找不到\n");
+}
+    printf("接下来删除s2\n");
+ s1.next=&s3;
+ s2.next=NULL;
+
+ curp=&s1;
+ printlinkedlist(curp);
+    
+ return 0;
+}
